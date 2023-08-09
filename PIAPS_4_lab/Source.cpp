@@ -10,27 +10,27 @@ public:
 
 protected:
 	sf::Texture textureBox;
-	sf::Sprite spriteBox; // спрайт изображения
+	sf::Sprite spriteBox; // СЃРїСЂР°Р№С‚ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
 	sf::Vector2f boxPos = { 800, 900 };
-	bool hasImage = false; // флаг, указывающий, загружено ли изображение в бокс
+	bool hasImage = false; // С„Р»Р°Рі, СѓРєР°Р·С‹РІР°СЋС‰РёР№, Р·Р°РіСЂСѓР¶РµРЅРѕ Р»Рё РёР·РѕР±СЂР°Р¶РµРЅРёРµ РІ Р±РѕРєСЃ
 	sf::Vector2f mousePos;
 	bool isDragging = false;
 
 	void handleDragging(sf::Event& event, sf::RenderWindow& window, sf::Sprite& sprite, sf::Texture& texture) {
 		if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-			// Сохраняем координаты нажатия мыши и позицию прямоугольника
+			// РЎРѕС…СЂР°РЅСЏРµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РЅР°Р¶Р°С‚РёСЏ РјС‹С€Рё Рё РїРѕР·РёС†РёСЋ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР°
 			mousePos = { static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y) };
 			isDragging = sprite.getGlobalBounds().contains(mousePos);
 			boxPos = sprite.getPosition();
 			sprite.setColor(sf::Color(175, 255, 255, 175));
 		}
 		else if (event.type == sf::Event::MouseMoved && isDragging) {
-			// Вычисляем новую позицию прямоугольника в соответствии с перемещением мыши
+			// Р’С‹С‡РёСЃР»СЏРµРј РЅРѕРІСѓСЋ РїРѕР·РёС†РёСЋ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР° РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ РїРµСЂРµРјРµС‰РµРЅРёРµРј РјС‹С€Рё
 			sf::Vector2f offset = { static_cast<float>(event.mouseMove.x) - mousePos.x,
 								   static_cast<float>(event.mouseMove.y) - mousePos.y };
 			sf::Vector2f newPos = boxPos + offset;
 
-			// Проверяем, не выходит ли прямоугольник за границы окна
+			// РџСЂРѕРІРµСЂСЏРµРј, РЅРµ РІС‹С…РѕРґРёС‚ Р»Рё РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє Р·Р° РіСЂР°РЅРёС†С‹ РѕРєРЅР°
 			if (newPos.x < 0) newPos.x = 0;
 			if (newPos.y < 0) newPos.y = 0;
 			if (newPos.x + texture.getSize().x > window.getSize().x)
@@ -41,7 +41,7 @@ protected:
 			sprite.setPosition(newPos);
 		}
 		else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
-			// Сбрасываем флаг перетаскивания
+			// РЎР±СЂР°СЃС‹РІР°РµРј С„Р»Р°Рі РїРµСЂРµС‚Р°СЃРєРёРІР°РЅРёСЏ
 			sprite.setColor(sf::Color::White);
 			isDragging = false;
 		}
@@ -57,7 +57,7 @@ public:
 	void draw(sf::RenderWindow& window) override {
 		
 	
-		if (textureBox.loadFromFile("TestImage.jpg")) // загрузка изображения с диска, если еще не загружено
+		if (textureBox.loadFromFile("TestImage.jpg")) // Р·Р°РіСЂСѓР·РєР° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ СЃ РґРёСЃРєР°, РµСЃР»Рё РµС‰Рµ РЅРµ Р·Р°РіСЂСѓР¶РµРЅРѕ
 		{
 			hasImage = true;
 			spriteBox.setTexture(textureBox);
